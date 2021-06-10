@@ -23,7 +23,7 @@ Administrator (Cap: Login, Forgot password, Management Users, Master Permission)
 Management (Cap: Login, Forgot password, Management Users)
 Client (Cap: Login, Forgot password, Dashboard)
 
-![alt text](https://github.com/SandiIceMessanger/ContentManagementSystemPrototype_GOLANG-Backend/blob/main/erd.PNG)
+![alt text](https://github.com/SandiIceMessanger/ContentManagementSystemPrototype_GOLANG-Backend/blob/main/gather.PNG)
 
 Sourcegraph GoDoc Go Report Card Build Status Codecov Join the chat at https://gitter.im/labstack/echo Forum Twitter License
 
