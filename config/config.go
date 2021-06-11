@@ -38,9 +38,8 @@ func InitDB() {
 }
 
 func InitMigrate() {
-	DB.AutoMigrate(&models.User{})
-	DB.AutoMigrate(&models.UserAdmin{})
-	DB.AutoMigrate(&models.UserClient{})
+	DB.AutoMigrate(&models.PasswordForget{})
+	DB.AutoMigrate(&models.PermissionMaster{})
 	DB.AutoMigrate(&models.UserManagement{})
 
 }
