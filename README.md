@@ -5,32 +5,48 @@ Prototype CMS Indochat
 Modules :
 
 Login
+
 Forgot password
+
 Management Users (CRUD)
+
 Master Permission (CRUD)
+
 Dashboard
+
 
 
 Technical Spec:
 
+
 Backend : Golang
+
 Frontend : Quasar
+
 Database : MySql 
 
 
+
 Level Users 
+
 Administrator (Cap: Login, Forgot password, Management Users, Master Permission)
+
 Management (Cap: Login, Forgot password, Management Users)
+
 Client (Cap: Login, Forgot password, Dashboard)
 
+
 ![alt text](https://github.com/SandiIceMessanger/ContentManagementSystemPrototype_GOLANG-Backend/blob/main/gather.PNG)
+
+
+
+![alt text](https://github.com/SandiIceMessanger/ContentManagementSystemPrototype_GOLANG-Backend/blob/main/erd.PNG)
+
 
 Sourcegraph GoDoc Go Report Card Build Status Codecov Join the chat at https://gitter.im/labstack/echo Forum Twitter License
 
 Supported Go versions
 As of version 4.0.0, Echo is available as a Go module. Therefore a Go version capable of understanding /vN suffixed imports is required:
-
-![alt text](https://github.com/SandiIceMessanger/ContentManagementSystemPrototype_GOLANG-Backend/blob/main/erd.PNG)
 
 1.9.7+
 1.10.3+
