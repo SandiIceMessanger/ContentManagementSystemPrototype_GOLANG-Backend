@@ -6,6 +6,7 @@ import (
 
 type PermissionMaster struct {
 	gorm.Model
-	Email  string `json:"email" form:"email"`
-	Status bool   `json:"status" form:"status"`
+	Permission string `json:"permission" form:"permission"`
+	IdUser     string `json:"id_user" form:"id_user"`
+	User       User   `gorm:"foreignKey:IdUser" json:"user" form:"user"`
 }

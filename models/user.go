@@ -4,7 +4,7 @@ import (
 	"github.com/jinzhu/gorm"
 )
 
-type UserManagement struct {
+type User struct {
 	gorm.Model
 	Name     string `json:"name" form:"name"`
 	Email    string `json:"email" form:"email"`

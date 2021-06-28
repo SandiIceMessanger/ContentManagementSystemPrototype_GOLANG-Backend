@@ -6,6 +6,7 @@ import (
 
 type PasswordForget struct {
 	gorm.Model
-	Email string `json:"email" form:"email"`
-	Token string `json:"token" form:"token"`
+	Token  string `json:"token" form:"token"`
+	IdUser int    `json:"id_user" form:"id_user"`
+	User   User   `gorm:"foreignKey:IdUser" json:"user" form:"user"`
 }

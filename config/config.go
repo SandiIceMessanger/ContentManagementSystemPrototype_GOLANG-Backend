@@ -40,6 +40,7 @@ func InitDB() {
 func InitMigrate() {
 	DB.AutoMigrate(&models.PasswordForget{})
 	DB.AutoMigrate(&models.PermissionMaster{})
-	DB.AutoMigrate(&models.UserManagement{})
+	DB.AutoMigrate(&models.PermissionTransaction{})
+	DB.AutoMigrate(&models.User{})
 
 }
