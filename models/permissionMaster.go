@@ -8,5 +8,5 @@ type PermissionMaster struct {
 	gorm.Model
 	Permission string `json:"permission" form:"permission"`
 	IdUser     string `json:"id_user" form:"id_user"`
-	User       User   `gorm:"foreignKey:IdUser" json:"user" form:"user"`
+	// User       User   `gorm:"foreignKey:IdUser" json:"user" form:"user"`
 }

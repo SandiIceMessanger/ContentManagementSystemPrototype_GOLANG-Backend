@@ -17,7 +17,7 @@ func InitDB() {
 		"DB_Password": "ecf541720",
 		"DB_Port":     "3306",
 		"DB_Host":     "127.0.0.1",
-		"DB_Name":     "db_cms_golang",
+		"DB_Name":     "db_cms_golang_dev",
 	}
 
 	connectionString :=
