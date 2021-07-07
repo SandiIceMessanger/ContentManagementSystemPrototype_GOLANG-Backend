@@ -10,47 +10,47 @@ import (
 	"github.com/labstack/echo"
 )
 
-func GetUsersController(c echo.Context) error {
-	users, err := database.GetUsers()
+func GetPermissionMastersController(c echo.Context) error {
+	permissionMasters, err := database.GetPermissionMasters()
 
 	if err != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
 	}
 
 	return c.JSON(http.StatusOK, map[string]interface{}{
-		"status": "success",
-		"users":  users,
+		"status":            "success",
+		"permissionMasters": permissionMasters,
 	})
 }
 
-func GetUserController(c echo.Context) error {
+func GetPermissionMasterController(c echo.Context) error {
 	id, err := strconv.Atoi(c.Param("id"))
 	if err != nil {
 		return c.JSON(http.StatusBadRequest, map[string]interface{}{
-			"message": "failed to get a user, user with ID " + c.Param("id") + " is not found",
+			"message": "failed to get a permissionMaster, permissionMaster with ID " + c.Param("id") + " is not found",
 		})
 	}
 
-	user, getErr := database.GetUser(id)
+	permissionMaster, getErr := database.GetPermissionMaster(id)
 	if getErr != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, getErr.Error())
 	}
 
 	return c.JSON(http.StatusOK, map[string]interface{}{
-		"status": "success",
-		"user":   user,
+		"status":           "success",
+		"permissionMaster": permissionMaster,
 	})
 }
 
-func DeleteUserController(c echo.Context) error {
+func DeletePermissionMasterController(c echo.Context) error {
 	id, err := strconv.Atoi(c.Param("id"))
 	if err != nil {
 		return c.JSON(http.StatusNotFound, map[string]interface{}{
-			"message": "failed to get a user, user with ID " + c.Param("id") + " is not found",
+			"message": "failed to get a permissionMaster, permissionMaster with ID " + c.Param("id") + " is not found",
 		})
 	}
 
-	if _, deleteErr := database.DeleteUser(id); deleteErr != nil {
+	if _, deleteErr := database.DeletePermissionMaster(id); deleteErr != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, deleteErr.Error())
 	}
 
@@ -59,53 +59,39 @@ func DeleteUserController(c echo.Context) error {
 	})
 }
 
-func UpdateUserController(c echo.Context) error {
+func UpdatePermissionMasterController(c echo.Context) error {
 	id, err := strconv.Atoi(c.Param("id"))
 	if err != nil {
 		return c.JSON(http.StatusNotFound, map[string]interface{}{
-			"message": "failed to get a user, user with ID " + c.Param("id") + " is not found",
+			"message": "failed to get a permissionMaster, permissionMaster with ID " + c.Param("id") + " is not found",
 		})
 	}
 
-	var updateUser models.User
-	c.Bind(&updateUser)
-	user, updateErr := database.UpdateUser(id, &updateUser)
+	var updatePermissionMaster models.PermissionMaster
+	c.Bind(&updatePermissionMaster)
+	permissionMaster, updateErr := database.UpdatePermissionMaster(id, &updatePermissionMaster)
 	if updateErr != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, updateErr.Error())
 	}
 
 	return c.JSON(http.StatusOK, map[string]interface{}{
-		"status": "success",
-		"user":   user,
+		"status":           "success",
+		"permissionMaster": permissionMaster,
 	})
 }
 
-func CreateUserController(c echo.Context) error {
-	user := models.User{}
-	c.Bind(&user)
+func CreatePermissionMasterController(c echo.Context) error {
+	permissionMaster := models.PermissionMaster{}
+	c.Bind(&permissionMaster)
 
-	_, err := database.CreateUser(&user)
+	_, err := database.CreatePermissionMaster(&permissionMaster)
 
 	if err != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
 	}
 
 	return c.JSON(http.StatusOK, map[string]interface{}{
-		"status": "success",
-		"user":   user,
-	})
-}
-
-func LoginUsersController(c echo.Context) error {
-	user := models.User{}
-	c.Bind(&user)
-
-	users, e := database.LoginUsers(&user)
-	if e != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, e.Error())
-	}
-	return c.JSON(http.StatusOK, map[string]interface{}{
-		"status": "success login",
-		"users":  users,
+		"status":           "success",
+		"permissionMaster": permissionMaster,
 	})
 }

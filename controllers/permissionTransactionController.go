@@ -10,47 +10,47 @@ import (
 	"github.com/labstack/echo"
 )
 
-func GetUsersController(c echo.Context) error {
-	users, err := database.GetUsers()
+func GetPermissionTransactionsController(c echo.Context) error {
+	permissionTransactions, err := database.GetPermissionTransactions()
 
 	if err != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
 	}
 
 	return c.JSON(http.StatusOK, map[string]interface{}{
-		"status": "success",
-		"users":  users,
+		"status":                 "success",
+		"permissionTransactions": permissionTransactions,
 	})
 }
 
-func GetUserController(c echo.Context) error {
+func GetPermissionTransactionController(c echo.Context) error {
 	id, err := strconv.Atoi(c.Param("id"))
 	if err != nil {
 		return c.JSON(http.StatusBadRequest, map[string]interface{}{
-			"message": "failed to get a user, user with ID " + c.Param("id") + " is not found",
+			"message": "failed to get a permissionTransaction, permissionTransaction with ID " + c.Param("id") + " is not found",
 		})
 	}
 
-	user, getErr := database.GetUser(id)
+	permissionTransaction, getErr := database.GetPermissionTransaction(id)
 	if getErr != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, getErr.Error())
 	}
 
 	return c.JSON(http.StatusOK, map[string]interface{}{
-		"status": "success",
-		"user":   user,
+		"status":                "success",
+		"permissionTransaction": permissionTransaction,
 	})
 }
 
-func DeleteUserController(c echo.Context) error {
+func DeletePermissionTransactionController(c echo.Context) error {
 	id, err := strconv.Atoi(c.Param("id"))
 	if err != nil {
 		return c.JSON(http.StatusNotFound, map[string]interface{}{
-			"message": "failed to get a user, user with ID " + c.Param("id") + " is not found",
+			"message": "failed to get a permissionTransaction, permissionTransaction with ID " + c.Param("id") + " is not found",
 		})
 	}
 
-	if _, deleteErr := database.DeleteUser(id); deleteErr != nil {
+	if _, deleteErr := database.DeletePermissionTransaction(id); deleteErr != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, deleteErr.Error())
 	}
 
@@ -59,53 +59,39 @@ func DeleteUserController(c echo.Context) error {
 	})
 }
 
-func UpdateUserController(c echo.Context) error {
+func UpdatePermissionTransactionController(c echo.Context) error {
 	id, err := strconv.Atoi(c.Param("id"))
 	if err != nil {
 		return c.JSON(http.StatusNotFound, map[string]interface{}{
-			"message": "failed to get a user, user with ID " + c.Param("id") + " is not found",
+			"message": "failed to get a permissionTransaction, permissionTransaction with ID " + c.Param("id") + " is not found",
 		})
 	}
 
-	var updateUser models.User
-	c.Bind(&updateUser)
-	user, updateErr := database.UpdateUser(id, &updateUser)
+	var updatePermissionTransaction models.PermissionTransaction
+	c.Bind(&updatePermissionTransaction)
+	permissionTransaction, updateErr := database.UpdatePermissionTransaction(id, &updatePermissionTransaction)
 	if updateErr != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, updateErr.Error())
 	}
 
 	return c.JSON(http.StatusOK, map[string]interface{}{
-		"status": "success",
-		"user":   user,
+		"status":                "success",
+		"permissionTransaction": permissionTransaction,
 	})
 }
 
-func CreateUserController(c echo.Context) error {
-	user := models.User{}
-	c.Bind(&user)
+func CreatePermissionTransactionController(c echo.Context) error {
+	permissionTransaction := models.PermissionTransaction{}
+	c.Bind(&permissionTransaction)
 
-	_, err := database.CreateUser(&user)
+	_, err := database.CreatePermissionTransaction(&permissionTransaction)
 
 	if err != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
 	}
 
 	return c.JSON(http.StatusOK, map[string]interface{}{
-		"status": "success",
-		"user":   user,
-	})
-}
-
-func LoginUsersController(c echo.Context) error {
-	user := models.User{}
-	c.Bind(&user)
-
-	users, e := database.LoginUsers(&user)
-	if e != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, e.Error())
-	}
-	return c.JSON(http.StatusOK, map[string]interface{}{
-		"status": "success login",
-		"users":  users,
+		"status":                "success",
+		"permissionTransaction": permissionTransaction,
 	})
 }

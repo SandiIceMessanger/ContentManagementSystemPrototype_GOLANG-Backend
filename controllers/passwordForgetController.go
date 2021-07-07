@@ -10,47 +10,47 @@ import (
 	"github.com/labstack/echo"
 )
 
-func GetUsersController(c echo.Context) error {
-	users, err := database.GetUsers()
+func GetPasswordForgetsController(c echo.Context) error {
+	passwordForgets, err := database.GetPasswordForgets()
 
 	if err != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
 	}
 
 	return c.JSON(http.StatusOK, map[string]interface{}{
-		"status": "success",
-		"users":  users,
+		"status":          "success",
+		"passwordForgets": passwordForgets,
 	})
 }
 
-func GetUserController(c echo.Context) error {
+func GetPasswordForgetController(c echo.Context) error {
 	id, err := strconv.Atoi(c.Param("id"))
 	if err != nil {
 		return c.JSON(http.StatusBadRequest, map[string]interface{}{
-			"message": "failed to get a user, user with ID " + c.Param("id") + " is not found",
+			"message": "failed to get a passwordForget, passwordForget with ID " + c.Param("id") + " is not found",
 		})
 	}
 
-	user, getErr := database.GetUser(id)
+	passwordForget, getErr := database.GetPasswordForget(id)
 	if getErr != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, getErr.Error())
 	}
 
 	return c.JSON(http.StatusOK, map[string]interface{}{
-		"status": "success",
-		"user":   user,
+		"status":         "success",
+		"passwordForget": passwordForget,
 	})
 }
 
-func DeleteUserController(c echo.Context) error {
+func DeletePasswordForgetController(c echo.Context) error {
 	id, err := strconv.Atoi(c.Param("id"))
 	if err != nil {
 		return c.JSON(http.StatusNotFound, map[string]interface{}{
-			"message": "failed to get a user, user with ID " + c.Param("id") + " is not found",
+			"message": "failed to get a passwordForget, passwordForget with ID " + c.Param("id") + " is not found",
 		})
 	}
 
-	if _, deleteErr := database.DeleteUser(id); deleteErr != nil {
+	if _, deleteErr := database.DeletePasswordForget(id); deleteErr != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, deleteErr.Error())
 	}
 
@@ -59,53 +59,39 @@ func DeleteUserController(c echo.Context) error {
 	})
 }
 
-func UpdateUserController(c echo.Context) error {
+func UpdatePasswordForgetController(c echo.Context) error {
 	id, err := strconv.Atoi(c.Param("id"))
 	if err != nil {
 		return c.JSON(http.StatusNotFound, map[string]interface{}{
-			"message": "failed to get a user, user with ID " + c.Param("id") + " is not found",
+			"message": "failed to get a passwordForget, passwordForget with ID " + c.Param("id") + " is not found",
 		})
 	}
 
-	var updateUser models.User
-	c.Bind(&updateUser)
-	user, updateErr := database.UpdateUser(id, &updateUser)
+	var updatePasswordForget models.PasswordForget
+	c.Bind(&updatePasswordForget)
+	passwordForget, updateErr := database.UpdatePasswordForget(id, &updatePasswordForget)
 	if updateErr != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, updateErr.Error())
 	}
 
 	return c.JSON(http.StatusOK, map[string]interface{}{
-		"status": "success",
-		"user":   user,
+		"status":         "success",
+		"passwordForget": passwordForget,
 	})
 }
 
-func CreateUserController(c echo.Context) error {
-	user := models.User{}
-	c.Bind(&user)
+func CreatePasswordForgetController(c echo.Context) error {
+	passwordForget := models.PasswordForget{}
+	c.Bind(&passwordForget)
 
-	_, err := database.CreateUser(&user)
+	_, err := database.CreatePasswordForget(&passwordForget)
 
 	if err != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
 	}
 
 	return c.JSON(http.StatusOK, map[string]interface{}{
-		"status": "success",
-		"user":   user,
-	})
-}
-
-func LoginUsersController(c echo.Context) error {
-	user := models.User{}
-	c.Bind(&user)
-
-	users, e := database.LoginUsers(&user)
-	if e != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, e.Error())
-	}
-	return c.JSON(http.StatusOK, map[string]interface{}{
-		"status": "success login",
-		"users":  users,
+		"status":         "success",
+		"passwordForget": passwordForget,
 	})
 }
