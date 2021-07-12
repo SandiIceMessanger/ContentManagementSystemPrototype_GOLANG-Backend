@@ -46,7 +46,7 @@ revission list
 
 rename the titlte v
 
-cek email sudah ada
+cek email sudah ada v
 
 password di hapus v
 full name token status type_user v
