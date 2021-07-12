@@ -42,15 +42,14 @@ Client (Cap: Login, Forgot password, Dashboard)
 
 ![alt text](https://github.com/SandiIceMessanger/ContentManagementSystemPrototype_GOLANG-Backend/blob/main/erd.PNG)
 
-rename the titlte v
+revission list 
 
-revission list
+rename the titlte v
 
 cek email sudah ada
 
-password di hapus
-
-full name token status type_user
+password di hapus v
+full name token status type_user v
 
 pembedaan untuk created user management by siapa?
 

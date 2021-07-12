@@ -25,15 +25,18 @@ func GetUser(id int) (interface{}, error) {
 }
 
 func DeleteUser(id int) (interface{}, error) {
-	var user models.User
-	if err := config.DB.First(&user, id).Error; err != nil {
+	var existingUser models.User
+	if err := config.DB.First(&existingUser, id).Error; err != nil {
 		return nil, err
 	}
 
-	if deleteErr := config.DB.Delete(&user).Error; deleteErr != nil {
+	existingUser.TypeUser = "0"
+
+	if deleteErr := config.DB.Save(&existingUser).Error; deleteErr != nil {
 		return nil, deleteErr
 	}
-	return nil, nil
+
+	return existingUser, nil
 }
 
 func UpdateUser(id int, user *models.User) (interface{}, error) {
