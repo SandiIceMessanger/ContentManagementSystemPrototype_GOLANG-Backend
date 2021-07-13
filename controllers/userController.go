@@ -84,6 +84,27 @@ func UpdateUserController(c echo.Context) error {
 	})
 }
 
+func AddUserController(c echo.Context) error {
+	id, err := strconv.Atoi(c.Param("id"))
+	if err != nil {
+		return c.JSON(http.StatusNotFound, map[string]interface{}{
+			"message": "failed to get a user, user with ID " + c.Param("id") + " is not found",
+		})
+	}
+
+	var addUser models.User
+	c.Bind(&addUser)
+	user, addErr := database.DeleteUser(id)
+	if addErr != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, addErr.Error())
+	}
+
+	return c.JSON(http.StatusOK, map[string]interface{}{
+		"message": "success",
+		"user":    user,
+	})
+}
+
 func CreateUserController(c echo.Context) error {
 	user := models.User{}
 	c.Bind(&user)

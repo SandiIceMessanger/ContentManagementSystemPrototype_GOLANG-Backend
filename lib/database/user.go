@@ -30,7 +30,7 @@ func DeleteUser(id int) (interface{}, error) {
 		return nil, err
 	}
 
-	existingUser.TypeUser = "0"
+	existingUser.Status = false
 
 	if deleteErr := config.DB.Save(&existingUser).Error; deleteErr != nil {
 		return nil, deleteErr
@@ -52,6 +52,21 @@ func UpdateUser(id int, user *models.User) (interface{}, error) {
 
 	if updateErr := config.DB.Save(&existingUser).Error; updateErr != nil {
 		return nil, updateErr
+	}
+
+	return existingUser, nil
+}
+
+func AddUser(id int) (interface{}, error) {
+	var existingUser models.User
+	if err := config.DB.First(&existingUser, id).Error; err != nil {
+		return nil, err
+	}
+
+	existingUser.Status = true
+
+	if addErr := config.DB.Save(&existingUser).Error; addErr != nil {
+		return nil, addErr
 	}
 
 	return existingUser, nil

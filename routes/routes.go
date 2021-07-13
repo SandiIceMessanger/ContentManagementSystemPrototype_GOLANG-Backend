@@ -22,6 +22,7 @@ func New() *echo.Echo {
 	r.GET("/users/:id", controllers.GetUserController)
 	r.DELETE("/users/:id", controllers.DeleteUserController)
 	r.PUT("/users/:id", controllers.UpdateUserController)
+	r.PUT("/users/add/:id", controllers.AddUserController)
 	r.POST("/users", controllers.CreateUserController)
 
 	r.GET("/password_forgets", controllers.GetPasswordForgetsController)
