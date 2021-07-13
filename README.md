@@ -62,7 +62,7 @@ kalau forget_password di kirim lewat email sebuah id yg di generate 6 digit seca
 kode nya setelah di pakai akan di innactive
 
 permission master ngelist data master buat transaksi
-hanya dat
+hanya data
 
 permission transaction
 id_permission_master, id user sama created by/a sign by siapa 
